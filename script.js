@@ -80,3 +80,26 @@ function handleNoClick() {
 function handleYesClick() {
     window.location.href = "yes_page.html";
 }
+const noButton = document.querySelector('.no-button');
+const container = document.querySelector('.container');
+
+container.addEventListener('mousemove', (e) => {
+    const buttonRect = noButton.getBoundingClientRect();
+    const distance = Math.sqrt(
+        Math.pow(e.clientX - (buttonRect.left + buttonRect.width / 2), 2) +
+        Math.pow(e.clientY - (buttonRect.top + buttonRect.height / 2), 2)
+    );
+
+    if (distance < 100) { // Distance en pixels pour déclencher l'éloignement
+        const containerRect = container.getBoundingClientRect();
+        const maxX = containerRect.width - noButton.offsetWidth;
+        const maxY = containerRect.height - noButton.offsetHeight;
+
+        let newX = Math.random() * maxX;
+        let newY = Math.random() * maxY;
+
+        noButton.style.position = 'absolute';
+        noButton.style.left = `${newX}px`;
+        noButton.style.top = `${newY}px`;
+    }
+});
